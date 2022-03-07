@@ -17,7 +17,7 @@ code_file = "code.svg";
 // Length of code frame (in MM) Does not include the keyring if enabled
 size_in_mm = 70; //[40:200]
 // If set, size value will be altered so that the width of each small line is a multiple of this value (set to your nozzle width or line size setting in your slicer, or 0 to disable)
-line_size = 0; //[0:0.001:2]
+line_size = 0.4; //[0:0.001:2]
 // Select A Type
 code_type = "cut-out"; //[raised:Raised,cut-out:Cut-Out,multi-color:Multi-Color | Code is displayed in preview ,code:Multi-Color Code | Use with Multi-Color,2D]
 // Logo Options
@@ -42,15 +42,15 @@ mask_logo = false;
 
 /*[Keyring Settings]*/
 // Basic or minimal keyhole
-keyhole_type = "tag"; //[None,basic:Basic,basic-alt:Basic Alt,minimal:Minimal,minimal-alt:Minimal Alt,tag:Tag,tag-squared:Tag Squared,hole:Hole,heart-hole:Heart Hole]
+keyhole_type = "minimal"; //[None,basic:Basic,basic-alt:Basic Alt,minimal:Minimal,minimal-alt:Minimal Alt,tag:Tag,tag-squared:Tag Squared,hole:Hole,heart-hole:Heart Hole]
 // Pick a side for the keyhole
 keyhole_side = "left"; //[left,right]
 // Choose how high the keyhole should be (doesn't work on Raised type)
-keyhole_top_layer = true;
+keyhole_top_layer = false;
 // Diameter of the hole (in mm)
 hole_size = 5; //[1:0.001:20]
 // Border around the hole (in mm)
-hole_border = 3; //[1:0.001:20]
+hole_border = 2; //[1:0.001:20]
 // Move the hole further/closer to the center
 hole_pos_buffer = 0; //[-5:0.1:5]
 
@@ -150,7 +150,7 @@ text_align = direction=="ttb"||direction=="btt" ? "bottom" : "center";
 //base_height_val = base_height==0 && code_type=="raised" ? 0.1 : base_height;
 base_height_val = base_height;
 
-key_hole_top_layer = border ? true : keyhole_top_layer;
+//key_hole_top_layer = border ? true : keyhole_top_layer;
 
 alt_rounded=alt_rounded_val==0?0.1:alt_rounded_val;
 blr=bl?alt_rounded:corner_val;
@@ -395,7 +395,7 @@ module the_thing(){
                 if(border) border(border_around_hole);
             }
         }
-        if(border&&code_type!="multi-color") color(code_color) translate([0,0,code_type=="cut-out"? base_height+code_height : base_height]) linear_extrude(code_height) border(border_around_hole);
+        if(border&&code_type!="multi-color") color(code_color) translate([0,0,code_type=="cut-out"? base_height : base_height]) linear_extrude(code_height) border(border_around_hole);
     }
 }
 
